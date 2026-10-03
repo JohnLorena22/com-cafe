@@ -22,4 +22,16 @@ class StationController extends Controller
 
         return response()->json($station, 201);
     }
+
+    public function update(Request $request, Station $station)
+   {
+    $station->update([
+        'name' => $request->name,
+        'tier' => $request->tier,
+        'rate' => $request->rate,
+    ]);
+
+    return response()->json($station);
+    }
+    
 }
