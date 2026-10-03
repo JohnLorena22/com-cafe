@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 
 function App() {
@@ -8,26 +8,20 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showAddStation, setShowAddStation] = useState(false);
 
-  const [stations, setStations] = useState([
-    {
-      id: 1,
-      name: "PC-01",
-      tier: "Regular",
-      rate: 20,
-    },
-    {
-      id: 2,
-      name: "PC-02",
-      tier: "Regular",
-      rate: 20,
-    },
-    {
-      id: 3,
-      name: "PC-03",
-      tier: "Premium",
-      rate: 30,
-    },
-  ]);
+  // Station state
+  const [stations, setStations] = useState([]);
+
+  useEffect(() => {
+  fetch("http://127.0.0.1:8000/api/stations")
+    .then((response) => response.json())
+    .then((data) => {
+      setStations(data);
+    })
+    .catch((error) => {
+      console.error("Error fetching stations:", error);
+    });
+  }, []);
+  
 
   const [stationName, setStationName] = useState("");
   const [tier, setTier] = useState("");
