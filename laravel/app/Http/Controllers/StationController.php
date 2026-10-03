@@ -10,4 +10,15 @@ class StationController extends Controller
     {
         return Station::all();
     }
+
+     public function store(Request $request)
+    {
+        $station = Station::create([
+            'name' => $request->name,
+            'tier' => $request->tier,
+            'rate' => $request->rate,
+        ]);
+
+        return response()->json($station, 201);
+    }
 }
