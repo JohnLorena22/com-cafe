@@ -6,3 +6,4 @@ use Illuminate\Support\Facades\Route;
 Route::get('/stations', [StationController::class, 'index']);
 Route::post('/stations', [StationController::class, 'store']);
 Route::put('/stations/{station}', [StationController::class, 'update']);
+Route::delete('/stations/{station}', [StationController::class, 'destroy']);

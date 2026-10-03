@@ -33,5 +33,13 @@ class StationController extends Controller
 
     return response()->json($station);
     }
-    
+
+    public function destroy(Station $station)
+    {
+    $station->delete();
+
+    return response()->json([
+        'message' => 'Station deleted successfully'
+    ]);
+    }
 }
