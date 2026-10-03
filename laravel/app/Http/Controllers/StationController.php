@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateStationRequest;
+
 use App\Http\Requests\StoreStationRequest;
 use App\Models\Station;
 use Illuminate\Http\Request;
@@ -20,13 +22,9 @@ class StationController extends Controller
         return response()->json($station, 201);
     }
 
-    public function update(Request $request, Station $station)
-   {
-    $station->update([
-        'name' => $request->name,
-        'tier' => $request->tier,
-        'rate' => $request->rate,
-    ]);
+    public function update(UpdateStationRequest $request, Station $station)
+    {
+    $station->update($request->validated());
 
     return response()->json($station);
     }
