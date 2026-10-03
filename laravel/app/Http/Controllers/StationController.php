@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreStationRequest;
 use App\Models\Station;
 use Illuminate\Http\Request;
 
@@ -12,13 +13,9 @@ class StationController extends Controller
         return Station::all();
     }
 
-     public function store(Request $request)
+     public function store(StoreStationRequest $request)
     {
-        $station = Station::create([
-            'name' => $request->name,
-            'tier' => $request->tier,
-            'rate' => $request->rate,
-        ]);
+        $station = Station::create($request->validated());
 
         return response()->json($station, 201);
     }
