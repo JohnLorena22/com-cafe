@@ -2,20 +2,28 @@ import { useState, useEffect } from "react";
 import "./App.css";
 
 function App() {
-  // Login
+  // ==========================================
+  // LOGIN
+  // ==========================================
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // Station form
+  // ==========================================
+  // STATION FORM
+  // ==========================================
   const [showAddStation, setShowAddStation] = useState(false);
   const [editingStation, setEditingStation] = useState(null);
 
-  // Stations
+  // ==========================================
+  // STATIONS
+  // ==========================================
   const [stations, setStations] = useState([]);
 
-  // Form fields
+  // ==========================================
+  // FORM FIELDS
+  // ==========================================
   const [stationName, setStationName] = useState("");
   const [tier, setTier] = useState("");
   const [rate, setRate] = useState("");
@@ -65,7 +73,7 @@ function App() {
   const handleAddStation = async (e) => {
     e.preventDefault();
 
-    if (!stationName || !tier || !rate) {
+    if (!stationName || !tier || !rate || !status) {
       setFormError("Please fill in all fields.");
       return;
     }
@@ -117,7 +125,7 @@ function App() {
   const handleUpdateStation = async (e) => {
     e.preventDefault();
 
-    if (!stationName || !tier || !rate) {
+    if (!stationName || !tier || !rate || !status) {
       setFormError("Please fill in all fields.");
       return;
     }
@@ -211,6 +219,7 @@ function App() {
     setStationName("");
     setTier("");
     setRate("");
+    setStatus("Available");
     setFormError("");
     setShowAddStation(false);
     setEditingStation(null);
@@ -310,6 +319,7 @@ function App() {
                   : handleAddStation
               }
             >
+              {/* STATION NAME */}
               <label htmlFor="stationName">
                 Station Name / PC Number
               </label>
@@ -324,50 +334,61 @@ function App() {
                 placeholder="Example: PC-04"
               />
 
-             
-
+              {/* TIER */}
               <label htmlFor="tier">
-              Tier / Category
+                Tier / Category
               </label>
 
               <select
                 id="tier"
                 value={tier}
                 onChange={(e) =>
-                setTier(e.target.value)
-                  }
+                  setTier(e.target.value)
+                }
               >
-              <option value="">
-                Select a tier
-              </option>
+                <option value="">
+                  Select a tier
+                </option>
 
-               <option value="Regular">
-               Regular
-              </option>
+                <option value="Regular">
+                  Regular
+                </option>
 
-              <option value="Premium">
-               Premium
-              </option>
+                <option value="Premium">
+                  Premium
+                </option>
 
-              <option value="VIP">
-                VIP
-              </option>
+                <option value="VIP">
+                  VIP
+                </option>
               </select>
 
+              {/* STATUS */}
               <label htmlFor="status">
-               Status
+                Status
               </label>
 
               <select
                 id="status"
                 value={status}
-                onChange={(e) => setStatus(e.target.value)}
+                onChange={(e) =>
+                  setStatus(e.target.value)
+                }
               >
-              <option value="Available">Available</option>
-              <option value="In Use">In Use</option>
-              <option value="Maintenance">Maintenance</option>
+                <option value="Available">
+                  Available
+                </option>
+
+                <option value="In Use">
+                  In Use
+                </option>
+
+                <option value="Maintenance">
+                  Maintenance
+                </option>
               </select>
 
+              {/* HOURLY RATE */}
               <label htmlFor="rate">
                 Hourly Rate
               </label>
@@ -383,12 +404,14 @@ function App() {
                 min="1"
               />
 
+              {/* ERROR */}
               {formError && (
                 <p className="error-message">
                   {formError}
                 </p>
               )}
 
+              {/* BUTTONS */}
               <div className="form-buttons">
                 <button
                   type="button"
@@ -452,6 +475,7 @@ function App() {
               setStationName("");
               setTier("");
               setRate("");
+              setStatus("Available");
               setFormError("");
               setShowAddStation(true);
             }}
@@ -479,9 +503,14 @@ function App() {
                   <p>
                     Hourly Rate: ₱{station.rate}
                   </p>
+
+                  <p>
+                    Status: {station.status}
+                  </p>
                 </div>
 
                 <div className="station-actions">
+                  {/* EDIT */}
                   <button
                     className="details-button"
                     onClick={() => {
@@ -489,12 +518,14 @@ function App() {
                       setStationName(station.name);
                       setTier(station.tier);
                       setRate(station.rate);
+                      setStatus(station.status);
                       setFormError("");
                     }}
                   >
                     Edit
                   </button>
 
+                  {/* DELETE */}
                   <button
                     className="delete-button"
                     onClick={() =>
