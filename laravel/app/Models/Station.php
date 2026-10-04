@@ -6,9 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Station extends Model
 {
-     protected $fillable = [
+    protected $fillable = [
         'name',
         'tier',
         'rate',
+        'status',
     ];
 }
