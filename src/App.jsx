@@ -248,9 +248,14 @@ function App() {
                 <p>Hourly Rate: ₱{station.rate}</p>
               </div>
 
-              <button className="details-button">
-                View Details
-              </button>
+              <button
+               className="details-button"
+               onClick={() => {
+               console.log("Station selected:", station);
+               }}
+              >
+              View Details
+             </button>
             </div>
           ))}
         </div>
