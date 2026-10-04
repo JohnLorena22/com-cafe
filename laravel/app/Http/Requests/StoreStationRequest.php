@@ -11,13 +11,14 @@ class StoreStationRequest extends FormRequest
     {
         return true;
     }
-
-    public function rules(): array
-    {
-        return [
-            'name' => 'required|string|max:255',
-            'tier' => 'required|string|max:255',
-            'rate' => 'required|numeric|min:0',
-        ];
+     //change rules 
+     public function rules(): array
+        {
+    return [
+        'name' => 'required|string|max:255',
+        'tier' => 'required|string|max:255',
+        'rate' => 'required|numeric|min:0',
+        'status' => 'required|in:Available,In Use,Maintenance',
+    ];
     }
 }
