@@ -140,6 +140,7 @@ function App() {
             name: stationName,
             tier: tier,
             rate: Number(rate),
+            status: status,
           }),
         }
       );
