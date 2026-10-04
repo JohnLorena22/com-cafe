@@ -17,6 +17,7 @@ class UpdateStationRequest extends FormRequest
             'name' => 'required|string|max:255',
             'tier' => 'required|string|max:255',
             'rate' => 'required|numeric|min:0',
+            'status' => 'required|in:Available,In Use,Maintenance',
         ];
     }
 }
