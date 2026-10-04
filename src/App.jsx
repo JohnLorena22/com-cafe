@@ -19,6 +19,7 @@ function App() {
   const [stationName, setStationName] = useState("");
   const [tier, setTier] = useState("");
   const [rate, setRate] = useState("");
+  const [status, setStatus] = useState("Available");
   const [formError, setFormError] = useState("");
 
   // ==========================================
@@ -87,6 +88,7 @@ function App() {
             name: stationName,
             tier: tier,
             rate: Number(rate),
+            status: status,
           }),
         }
       );
