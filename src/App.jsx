@@ -324,32 +324,48 @@ function App() {
                 placeholder="Example: PC-04"
               />
 
+             
+
               <label htmlFor="tier">
-                Tier / Category
+              Tier / Category
               </label>
 
               <select
                 id="tier"
                 value={tier}
                 onChange={(e) =>
-                  setTier(e.target.value)
-                }
+                setTier(e.target.value)
+                  }
               >
-                <option value="">
-                  Select a tier
-                </option>
+              <option value="">
+                Select a tier
+              </option>
 
-                <option value="Regular">
-                  Regular
-                </option>
+               <option value="Regular">
+               Regular
+              </option>
 
-                <option value="Premium">
-                  Premium
-                </option>
+              <option value="Premium">
+               Premium
+              </option>
 
-                <option value="VIP">
-                  VIP
-                </option>
+              <option value="VIP">
+                VIP
+              </option>
+              </select>
+
+              <label htmlFor="status">
+               Status
+              </label>
+
+              <select
+                id="status"
+                value={status}
+                onChange={(e) => setStatus(e.target.value)}
+              >
+              <option value="Available">Available</option>
+              <option value="In Use">In Use</option>
+              <option value="Maintenance">Maintenance</option>
               </select>
 
               <label htmlFor="rate">
