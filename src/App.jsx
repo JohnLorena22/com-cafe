@@ -2,25 +2,37 @@ import { useState, useEffect } from "react";
 import "./App.css";
 
 function App() {
+  // Login
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  // Station form
   const [showAddStation, setShowAddStation] = useState(false);
   const [editingStation, setEditingStation] = useState(null);
 
+  // Stations
   const [stations, setStations] = useState([]);
 
+  // Form fields
   const [stationName, setStationName] = useState("");
   const [tier, setTier] = useState("");
   const [rate, setRate] = useState("");
   const [formError, setFormError] = useState("");
 
-  // Get stations from Laravel API
+  // ==========================================
+  // GET ALL STATIONS
+  // ==========================================
   useEffect(() => {
     fetch("http://127.0.0.1:8000/api/stations")
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch stations.");
+        }
+
+        return response.json();
+      })
       .then((data) => {
         setStations(data);
       })
@@ -29,11 +41,16 @@ function App() {
       });
   }, []);
 
-  // Login
+  // ==========================================
+  // LOGIN
+  // ==========================================
   const handleLogin = (e) => {
     e.preventDefault();
 
-    if (username === "cafe_admin" && password === "pcshop2026") {
+    if (
+      username === "cafe_admin" &&
+      password === "pcshop2026"
+    ) {
       setError("");
       setIsLoggedIn(true);
     } else {
@@ -41,43 +58,152 @@ function App() {
     }
   };
 
-  // Add Station
-  const handleDeleteStation = async (stationId) => {
-  const confirmDelete = window.confirm(
-    "Are you sure you want to delete this station?"
-  );
+  // ==========================================
+  // ADD STATION
+  // ==========================================
+  const handleAddStation = async (e) => {
+    e.preventDefault();
 
-  if (!confirmDelete) {
-    return;
-  }
-
-  try {
-    const response = await fetch(
-      `http://127.0.0.1:8000/api/stations/${stationId}`,
-      {
-        method: "DELETE",
-        headers: {
-          Accept: "application/json",
-        },
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error("Failed to delete station.");
+    if (!stationName || !tier || !rate) {
+      setFormError("Please fill in all fields.");
+      return;
     }
 
-    setStations((currentStations) =>
-      currentStations.filter(
-        (station) => station.id !== stationId
-      )
-    );
-  } catch (error) {
-    console.error(error);
-    alert("Failed to delete station.");
-  }
- };
+    if (Number(rate) <= 0) {
+      setFormError("Hourly rate must be greater than 0.");
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        "http://127.0.0.1:8000/api/stations",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            name: stationName,
+            tier: tier,
+            rate: Number(rate),
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to add station.");
+      }
+
+      const newStation = await response.json();
+
+      setStations((currentStations) => [
+        ...currentStations,
+        newStation,
+      ]);
+
+      clearForm();
+    } catch (error) {
+      console.error("Error adding station:", error);
+      setFormError("Failed to add station.");
+    }
   };
-  // Clear station form
+
+  // ==========================================
+  // UPDATE STATION
+  // ==========================================
+  const handleUpdateStation = async (e) => {
+    e.preventDefault();
+
+    if (!stationName || !tier || !rate) {
+      setFormError("Please fill in all fields.");
+      return;
+    }
+
+    if (Number(rate) <= 0) {
+      setFormError("Hourly rate must be greater than 0.");
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        `http://127.0.0.1:8000/api/stations/${editingStation.id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            name: stationName,
+            tier: tier,
+            rate: Number(rate),
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to update station.");
+      }
+
+      const updatedStation = await response.json();
+
+      setStations((currentStations) =>
+        currentStations.map((station) =>
+          station.id === updatedStation.id
+            ? updatedStation
+            : station
+        )
+      );
+
+      clearForm();
+    } catch (error) {
+      console.error("Error updating station:", error);
+      setFormError("Failed to update station.");
+    }
+  };
+
+  // ==========================================
+  // DELETE STATION
+  // ==========================================
+  const handleDeleteStation = async (stationId) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this station?"
+    );
+
+    if (!confirmDelete) {
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        `http://127.0.0.1:8000/api/stations/${stationId}`,
+        {
+          method: "DELETE",
+          headers: {
+            Accept: "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to delete station.");
+      }
+
+      setStations((currentStations) =>
+        currentStations.filter(
+          (station) => station.id !== stationId
+        )
+      );
+    } catch (error) {
+      console.error("Error deleting station:", error);
+      alert("Failed to delete station.");
+    }
+  };
+
+  // ==========================================
+  // CLEAR FORM
+  // ==========================================
   const clearForm = () => {
     setStationName("");
     setTier("");
@@ -87,56 +213,76 @@ function App() {
     setEditingStation(null);
   };
 
-  // Login Page
+  // ==========================================
+  // LOGIN PAGE
+  // ==========================================
   if (!isLoggedIn) {
     return (
       <div className="login-page">
         <div className="login-card">
           <h1>Computer Cafe</h1>
+
           <p className="subtitle">
             Station Management System
           </p>
 
           <form onSubmit={handleLogin}>
-            <label htmlFor="username">Username</label>
+            <label htmlFor="username">
+              Username
+            </label>
 
             <input
               id="username"
               type="text"
               value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              onChange={(e) =>
+                setUsername(e.target.value)
+              }
               placeholder="Enter username"
             />
 
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password">
+              Password
+            </label>
 
             <input
               id="password"
               type="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) =>
+                setPassword(e.target.value)
+              }
               placeholder="Enter password"
             />
 
             {error && (
-              <p className="error-message">{error}</p>
+              <p className="error-message">
+                {error}
+              </p>
             )}
 
-            <button type="submit">Login</button>
+            <button type="submit">
+              Login
+            </button>
           </form>
         </div>
       </div>
     );
   }
 
-  // Add/Edit Station Form
+  // ==========================================
+  // ADD / EDIT STATION PAGE
+  // ==========================================
   if (showAddStation || editingStation) {
     return (
       <div className="station-page">
         <header className="station-header">
           <div>
             <h1>Computer Cafe</h1>
-            <p>Station Management System</p>
+
+            <p>
+              Station Management System
+            </p>
           </div>
         </header>
 
@@ -246,18 +392,25 @@ function App() {
     );
   }
 
-  // Station List Page
+  // ==========================================
+  // STATION LIST PAGE
+  // ==========================================
   return (
     <div className="station-page">
       <header className="station-header">
         <div>
           <h1>Computer Cafe</h1>
-          <p>Station Management System</p>
+
+          <p>
+            Station Management System
+          </p>
         </div>
 
         <button
           className="logout-button"
-          onClick={() => setIsLoggedIn(false)}
+          onClick={() => {
+            setIsLoggedIn(false);
+          }}
         >
           Logout
         </button>
@@ -267,6 +420,7 @@ function App() {
         <div className="station-title">
           <div>
             <h2>Station List</h2>
+
             <p>
               Manage your computer cafe stations
             </p>
@@ -308,23 +462,29 @@ function App() {
                   </p>
                 </div>
 
-                <button
-                  className="details-button"
-                  onClick={() => {
-                    setEditingStation(station);
-                    setStationName(station.name);
-                    setTier(station.tier);
-                    setRate(station.rate);
-                    setFormError("");
-                  }}
-                >
-                  Edit
-                </button>
-                <button className="delete-button"
-                  onClick={() => handleDeleteStation(station.id)}
-                >
-                  Delete
-                 </button>
+                <div className="station-actions">
+                  <button
+                    className="details-button"
+                    onClick={() => {
+                      setEditingStation(station);
+                      setStationName(station.name);
+                      setTier(station.tier);
+                      setRate(station.rate);
+                      setFormError("");
+                    }}
+                  >
+                    Edit
+                  </button>
+
+                  <button
+                    className="delete-button"
+                    onClick={() =>
+                      handleDeleteStation(station.id)
+                    }
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
             ))
           )}
@@ -332,6 +492,6 @@ function App() {
       </main>
     </div>
   );
+}
 
-  
 export default App;
