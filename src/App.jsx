@@ -320,6 +320,11 @@ function App() {
                 >
                   Edit
                 </button>
+                <button className="delete-button"
+                  onClick={() => handleDeleteStation(station.id)}
+                >
+                  Delete
+                 </button>
               </div>
             ))
           )}
@@ -328,5 +333,5 @@ function App() {
     </div>
   );
 
-
+  
 export default App;
