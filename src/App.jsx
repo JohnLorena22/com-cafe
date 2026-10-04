@@ -42,7 +42,7 @@ function App() {
   };
 
   // Add Station
-   const handleDeleteStation = async (stationId) => {
+  const handleDeleteStation = async (stationId) => {
   const confirmDelete = window.confirm(
     "Are you sure you want to delete this station?"
   );
@@ -75,6 +75,7 @@ function App() {
     console.error(error);
     alert("Failed to delete station.");
   }
+ };
   };
   // Clear station form
   const clearForm = () => {
@@ -326,6 +327,6 @@ function App() {
       </main>
     </div>
   );
-}
+
 
 export default App;
