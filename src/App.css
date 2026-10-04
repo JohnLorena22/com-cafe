@@ -1,69 +1,77 @@
-/* ==========================================
-   GLOBAL
-========================================== */
-
 * {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  background: #0f1115;
-  color: #f5f5f5;
+  font-family: "Courier New", Courier, monospace;
+  background: #e8e1d5;
+  color: #3f3a32;
 }
 
 button,
 input,
 select {
-  font-family: inherit;
+  font-family: "Courier New", Courier, monospace;
 }
 
-button {
-  cursor: pointer;
-}
 
 /* ==========================================
    LOGIN PAGE
-========================================== */
+   ========================================== */
 
 .login-page {
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
+  padding: 24px;
+
   background:
-    radial-gradient(circle at top, #252a33 0%, #0f1115 45%);
+    radial-gradient(circle at 20% 20%, #f4eee4 0, transparent 30%),
+    radial-gradient(circle at 80% 80%, #ddd3c3 0, transparent 35%),
+    #e8e1d5;
 }
 
 .login-card {
   width: 100%;
-  max-width: 420px;
-  padding: 40px;
-  background: #181b21;
-  border: 1px solid #2b3039;
+  max-width: 430px;
+
+  padding: 42px;
+
+  background: #f7f2e9;
+  border: 2px solid #817766;
   border-radius: 18px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+
+  box-shadow:
+    6px 6px 0 #b7ad9d,
+    0 12px 30px rgba(72, 62, 48, 0.12);
 }
 
 .login-card h1 {
   margin: 0;
+
   text-align: center;
-  font-size: 32px;
-  letter-spacing: -0.5px;
+
+  font-size: 30px;
+  letter-spacing: 1px;
+
+  color: #4c5945;
 }
 
 .subtitle {
-  margin: 8px 0 32px;
+  margin: 8px 0 30px;
+
   text-align: center;
-  color: #9ca3af;
-  font-size: 14px;
+
+  color: #857b6c;
+  font-size: 13px;
 }
+
 
 /* ==========================================
    FORM ELEMENTS
-========================================== */
+   ========================================== */
 
 .login-card form,
 .form-card form {
@@ -71,373 +79,627 @@ button {
   flex-direction: column;
 }
 
-label {
-  margin-bottom: 8px;
-  color: #d1d5db;
-  font-size: 14px;
-  font-weight: 600;
+.login-card label,
+.form-card label {
+  margin-bottom: 7px;
+
+  color: #5a5145;
+
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: 0.4px;
 }
 
-input,
-select {
+.login-card input,
+.form-card input,
+.form-card select {
   width: 100%;
-  padding: 13px 14px;
-  margin-bottom: 20px;
-  border: 1px solid #343a46;
-  border-radius: 10px;
+
+  padding: 12px 14px;
+  margin-bottom: 19px;
+
+  background: #fffaf1;
+
+  border: 2px solid #c8bdaa;
+  border-radius: 9px;
+
+  color: #403a31;
+
+  font-size: 14px;
+
   outline: none;
-  background: #111318;
-  color: #f5f5f5;
-  font-size: 15px;
-  transition: 0.2s ease;
 }
 
-input::placeholder {
-  color: #6b7280;
+.login-card input:focus,
+.form-card input:focus,
+.form-card select:focus {
+  border-color: #758568;
+
+  box-shadow:
+    0 0 0 3px rgba(117, 133, 104, 0.12);
 }
 
-input:focus,
-select:focus {
-  border-color: #6366f1;
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
-}
 
 /* ==========================================
-   GENERAL BUTTON
-========================================== */
+   BUTTONS
+   ========================================== */
 
-button[type="submit"] {
-  width: 100%;
-  padding: 13px 18px;
-  border: none;
-  border-radius: 10px;
-  background: #6366f1;
-  color: white;
-  font-size: 15px;
-  font-weight: 700;
-  transition: 0.2s ease;
+.login-card button {
+  padding: 13px;
+
+  border: 2px solid #59664f;
+  border-radius: 9px;
+
+  background: #6f7d63;
+  color: #fffaf1;
+
+  font-size: 14px;
+  font-weight: bold;
+
+  cursor: pointer;
+
+  box-shadow: 3px 3px 0 #4f5947;
 }
 
-button[type="submit"]:hover {
-  background: #5558e8;
-  transform: translateY(-1px);
+.login-card button:hover {
+  background: #617055;
 }
+
+.login-card button:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 #4f5947;
+}
+
 
 /* ==========================================
    ERROR
-========================================== */
+   ========================================== */
 
 .error-message {
-  margin: -8px 0 18px;
+  margin: 0 0 15px;
+
   padding: 10px 12px;
+
+  background: #f5e4dd;
+
+  border: 1px solid #c99c8c;
   border-radius: 8px;
-  background: rgba(239, 68, 68, 0.1);
-  color: #f87171;
+
+  color: #9a5141;
+
   font-size: 13px;
 }
 
+
 /* ==========================================
    STATION PAGE
-========================================== */
+   ========================================== */
 
 .station-page {
   min-height: 100vh;
-  background: #0f1115;
+
+  background:
+    radial-gradient(circle at 10% 10%, #f2ece1 0, transparent 28%),
+    #e8e1d5;
 }
+
 
 /* ==========================================
    HEADER
-========================================== */
+   ========================================== */
 
 .station-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 22px 7%;
-  border-bottom: 1px solid #272c35;
-  background: #15181e;
+
+  padding: 22px 50px;
+
+  background: #f7f2e9;
+
+  border-bottom: 2px solid #b9ae9e;
+
+  box-shadow: 0 3px 10px rgba(70, 60, 48, 0.07);
 }
 
 .station-header h1 {
   margin: 0;
-  font-size: 24px;
+
+  font-size: 23px;
+  letter-spacing: 1px;
+
+  color: #4c5945;
 }
 
 .station-header p {
   margin: 5px 0 0;
-  color: #8f96a3;
-  font-size: 13px;
+
+  color: #857b6c;
+
+  font-size: 12px;
 }
+
 
 /* ==========================================
    LOGOUT
-========================================== */
+   ========================================== */
 
 .logout-button {
-  padding: 9px 16px;
-  border: 1px solid #343a46;
-  border-radius: 9px;
-  background: transparent;
-  color: #d1d5db;
-  font-size: 14px;
-  transition: 0.2s ease;
+  padding: 9px 15px;
+
+  background: #eee7db;
+
+  border: 2px solid #a89c8b;
+  border-radius: 8px;
+
+  color: #62594d;
+
+  font-size: 12px;
+  font-weight: bold;
+
+  cursor: pointer;
 }
 
 .logout-button:hover {
-  background: #252a33;
-  color: white;
+  background: #e3dacb;
 }
+
 
 /* ==========================================
    MAIN CONTENT
-========================================== */
+   ========================================== */
 
 .station-content {
-  width: 86%;
+  width: 100%;
   max-width: 1100px;
+
   margin: 0 auto;
-  padding: 45px 0;
+
+  padding: 42px 30px;
 }
+
 
 /* ==========================================
    STATION TITLE
-========================================== */
+   ========================================== */
 
 .station-title {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 28px;
+
+  margin-bottom: 26px;
 }
 
 .station-title h2 {
   margin: 0;
-  font-size: 28px;
+
+  font-size: 25px;
+  letter-spacing: 0.5px;
+
+  color: #4b453c;
 }
 
 .station-title p {
   margin: 7px 0 0;
-  color: #8f96a3;
-  font-size: 14px;
+
+  color: #8a8071;
+
+  font-size: 12px;
 }
+
 
 /* ==========================================
    ADD BUTTON
-========================================== */
+   ========================================== */
 
 .add-button {
-  width: 46px;
-  height: 46px;
-  border: none;
-  border-radius: 12px;
-  background: #6366f1;
-  color: white;
-  font-size: 27px;
-  line-height: 1;
-  transition: 0.2s ease;
+  width: 45px;
+  height: 45px;
+
+  border: 2px solid #59664f;
+  border-radius: 10px;
+
+  background: #6f7d63;
+  color: #fffaf1;
+
+  font-size: 25px;
+  font-weight: bold;
+
+  cursor: pointer;
+
+  box-shadow: 3px 3px 0 #4f5947;
 }
 
 .add-button:hover {
-  background: #5558e8;
-  transform: translateY(-2px);
+  background: #617055;
 }
+
+.add-button:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 #4f5947;
+}
+
 
 /* ==========================================
    STATION LIST
-========================================== */
+   ========================================== */
 
 .station-list {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 18px;
+
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  gap: 20px;
 }
 
+
+/* ==========================================
+   STATION CARD
+   ========================================== */
+
 .station-card {
+  position: relative;
+
   display: flex;
   justify-content: space-between;
-  align-items: center;
+
   gap: 20px;
-  padding: 24px;
-  background: #181b21;
-  border: 1px solid #2b3039;
-  border-radius: 15px;
-  transition: 0.2s ease;
+
+  padding: 23px;
+
+  background: #f7f2e9;
+
+  border: 2px solid #b9ae9e;
+  border-radius: 14px;
+
+  box-shadow:
+    4px 4px 0 #c8bdad,
+    0 8px 18px rgba(70, 60, 48, 0.06);
+
+  transition: transform 0.15s ease,
+              box-shadow 0.15s ease;
 }
 
 .station-card:hover {
-  border-color: #414856;
   transform: translateY(-2px);
+
+  box-shadow:
+    5px 6px 0 #c0b5a5,
+    0 12px 22px rgba(70, 60, 48, 0.08);
 }
 
-.station-card h3 {
+.station-info {
+  min-width: 0;
+}
+
+.station-info h3 {
   margin: 0 0 14px;
+
   font-size: 19px;
+
+  color: #4c5945;
 }
 
-.station-card p {
-  margin: 6px 0;
-  color: #a8adb7;
-  font-size: 14px;
+.station-info p {
+  margin: 7px 0;
+
+  color: #817769;
+
+  font-size: 13px;
 }
+
+
+/* ==========================================
+   STATUS
+   ========================================== */
+
+.station-status {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 8px;
+
+  margin-top: 12px;
+
+  padding: 7px 11px;
+
+  background: #eee8dc;
+
+  border: 1px solid #c8bdaa;
+  border-radius: 20px;
+
+  font-size: 12px;
+  font-weight: bold;
+}
+
+
+/* ==========================================
+   STATUS DOT
+   ========================================== */
+
+.status-dot {
+  width: 9px;
+  height: 9px;
+
+  display: inline-block;
+
+  border-radius: 50%;
+
+  box-shadow:
+    0 0 0 2px rgba(255, 255, 255, 0.5);
+}
+
+
+/* AVAILABLE */
+
+.status-dot.available {
+  background: #78916c;
+}
+
+.status-text.available {
+  color: #58704e;
+}
+
+
+/* IN USE */
+
+.status-dot.in-use {
+  background: #c49355;
+}
+
+.status-text.in-use {
+  color: #9b703d;
+}
+
+
+/* MAINTENANCE */
+
+.status-dot.maintenance {
+  background: #b66d61;
+}
+
+.status-text.maintenance {
+  color: #98564c;
+}
+
+
+/* UNKNOWN */
+
+.status-dot.unknown {
+  background: #8b8173;
+}
+
+.status-text.unknown {
+  color: #6e6559;
+}
+
 
 /* ==========================================
    STATION ACTIONS
-========================================== */
+   ========================================== */
 
 .station-actions {
   display: flex;
+  flex-direction: column;
+
   gap: 8px;
-  flex-shrink: 0;
+
+  min-width: 75px;
 }
 
-.details-button,
-.delete-button {
-  padding: 9px 13px;
-  border-radius: 8px;
-  font-size: 13px;
-  font-weight: 600;
-  transition: 0.2s ease;
+.station-actions button {
+  padding: 8px 11px;
+
+  border-radius: 7px;
+
+  font-size: 12px;
+  font-weight: bold;
+
+  cursor: pointer;
 }
+
+
+/* EDIT */
 
 .details-button {
-  border: 1px solid #3d4350;
-  background: #242932;
-  color: #e5e7eb;
+  background: #eee8dc;
+
+  border: 2px solid #b7aa99;
+
+  color: #62594d;
 }
 
 .details-button:hover {
-  background: #303641;
+  background: #e4dbcd;
 }
 
+
+/* DELETE */
+
 .delete-button {
-  border: 1px solid rgba(239, 68, 68, 0.3);
-  background: rgba(239, 68, 68, 0.08);
-  color: #f87171;
+  background: #f5e4df;
+
+  border: 2px solid #c79a8d;
+
+  color: #96564b;
 }
 
 .delete-button:hover {
-  background: rgba(239, 68, 68, 0.16);
+  background: #eed8d2;
 }
 
+
 /* ==========================================
-   ADD / EDIT FORM
-========================================== */
+   FORM CARD
+   ========================================== */
 
 .form-card {
   width: 100%;
   max-width: 600px;
-  margin: 0 auto;
-  padding: 35px;
-  background: #181b21;
-  border: 1px solid #2b3039;
-  border-radius: 18px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+
+  margin: 20px auto;
+
+  padding: 32px;
+
+  background: #f7f2e9;
+
+  border: 2px solid #b9ae9e;
+  border-radius: 15px;
+
+  box-shadow:
+    5px 5px 0 #c5baaa,
+    0 10px 25px rgba(70, 60, 48, 0.08);
 }
 
 .form-card h2 {
   margin: 0;
-  font-size: 26px;
+
+  font-size: 24px;
+
+  color: #4c5945;
 }
 
 .form-description {
-  margin: 8px 0 30px;
-  color: #8f96a3;
-  font-size: 14px;
+  margin: 8px 0 27px;
+
+  color: #857b6c;
+
+  font-size: 12px;
 }
+
 
 /* ==========================================
    FORM BUTTONS
-========================================== */
+   ========================================== */
 
 .form-buttons {
   display: flex;
+  justify-content: flex-end;
+
   gap: 10px;
-  margin-top: 8px;
+
+  margin-top: 4px;
 }
 
 .form-buttons button {
-  flex: 1;
-  padding: 12px 16px;
-  border-radius: 10px;
-  font-size: 14px;
-  font-weight: 700;
+  padding: 10px 17px;
+
+  border-radius: 8px;
+
+  font-size: 12px;
+  font-weight: bold;
+
+  cursor: pointer;
 }
 
 .form-buttons button[type="submit"] {
-  width: auto;
+  border: 2px solid #59664f;
+
+  background: #6f7d63;
+  color: #fffaf1;
+
+  box-shadow: 2px 2px 0 #4f5947;
+}
+
+.form-buttons button[type="submit"]:hover {
+  background: #617055;
 }
 
 .cancel-button {
-  border: 1px solid #343a46;
-  background: #242932;
-  color: #d1d5db;
+  border: 2px solid #b7aa99;
+
+  background: #eee8dc;
+
+  color: #62594d;
 }
 
 .cancel-button:hover {
-  background: #303641;
+  background: #e2d9cb;
 }
 
+
 /* ==========================================
-   EMPTY STATE
-========================================== */
+   EMPTY STATION LIST
+   ========================================== */
 
 .station-list > p {
-  grid-column: 1 / -1;
-  padding: 40px;
+  padding: 30px;
+
+  background: #f7f2e9;
+
+  border: 2px dashed #b9ae9e;
+  border-radius: 12px;
+
+  color: #857b6c;
+
   text-align: center;
-  color: #8f96a3;
-  background: #181b21;
-  border: 1px dashed #343a46;
-  border-radius: 14px;
+
+  font-size: 13px;
 }
 
-/* ==========================================
-   RESPONSIVE
-========================================== */
 
-@media (max-width: 800px) {
+/* ==========================================
+   MOBILE
+   ========================================== */
+
+@media (max-width: 768px) {
+  .station-header {
+    padding: 18px 20px;
+  }
+
+  .station-content {
+    padding: 30px 20px;
+  }
+
   .station-list {
     grid-template-columns: 1fr;
   }
 
-  .station-header {
-    padding: 20px 5%;
-  }
-
-  .station-content {
-    width: 90%;
-    padding: 35px 0;
+  .station-card {
+    padding: 20px;
   }
 }
 
-@media (max-width: 500px) {
+
+/* ==========================================
+   SMALL MOBILE
+   ========================================== */
+
+@media (max-width: 480px) {
   .login-card {
-    padding: 28px 22px;
+    padding: 30px 22px;
   }
 
-  .login-card h1 {
-    font-size: 27px;
+  .station-header {
+    align-items: flex-start;
+
+    gap: 15px;
   }
 
   .station-header h1 {
-    font-size: 20px;
+    font-size: 19px;
+  }
+
+  .station-title {
+    align-items: flex-start;
   }
 
   .station-title h2 {
-    font-size: 23px;
+    font-size: 21px;
   }
 
   .station-card {
     flex-direction: column;
-    align-items: stretch;
   }
 
   .station-actions {
+    flex-direction: row;
+
     width: 100%;
   }
 
-  .details-button,
-  .delete-button {
+  .station-actions button {
     flex: 1;
   }
 
@@ -446,6 +708,11 @@ button[type="submit"]:hover {
   }
 
   .form-buttons {
-    flex-direction: column;
+    flex-direction: column-reverse;
+  }
+
+  .form-buttons button {
+    width: 100%;
   }
 }
+
