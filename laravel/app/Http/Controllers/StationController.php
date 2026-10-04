@@ -22,6 +22,7 @@ class StationController extends Controller
         return response()->json($station, 201);
     }
 
+    //UpdateStationRequest
     public function update(UpdateStationRequest $request, Station $station)
     {
     $station->update($request->validated());
