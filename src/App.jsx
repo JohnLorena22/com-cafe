@@ -39,33 +39,57 @@ function App() {
     }
   };
 
-  const handleAddStation = (e) => {
-    e.preventDefault();
+  //Handle adding a new station
+  const handleAddStation = async (e) => {
+  e.preventDefault();
 
-    if (!stationName || !tier || !rate) {
-      setFormError("Please fill in all fields.");
-      return;
+  if (!stationName || !tier || !rate) {
+    setFormError("Please fill in all fields.");
+    return;
+  }
+
+  if (Number(rate) <= 0) {
+    setFormError("Hourly rate must be greater than 0.");
+    return;
+   }
+
+   try {
+    const response = await fetch(
+      "http://127.0.0.1:8000/api/stations",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          name: stationName,
+          tier: tier,
+          rate: Number(rate),
+        }),
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to add station.");
     }
 
-    if (Number(rate) <= 0) {
-      setFormError("Hourly rate must be greater than 0.");
-      return;
-    }
+    const newStation = await response.json();
 
-    const newStation = {
-      id: stations.length + 1,
-      name: stationName,
-      tier: tier,
-      rate: Number(rate),
-    };
-
-    setStations([...stations, newStation]);
+    setStations((currentStations) => [
+      ...currentStations,
+      newStation,
+    ]);
 
     setStationName("");
     setTier("");
     setRate("");
     setFormError("");
     setShowAddStation(false);
+   } catch (error) {
+    console.error(error);
+    setFormError("Failed to add station.");
+   }
   };
 
   if (!isLoggedIn) {
