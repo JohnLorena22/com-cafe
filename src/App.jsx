@@ -42,106 +42,40 @@ function App() {
   };
 
   // Add Station
-  const handleAddStation = async (e) => {
-    e.preventDefault();
+   const handleDeleteStation = async (stationId) => {
+  const confirmDelete = window.confirm(
+    "Are you sure you want to delete this station?"
+  );
 
-    if (!stationName || !tier || !rate) {
-      setFormError("Please fill in all fields.");
-      return;
-    }
+  if (!confirmDelete) {
+    return;
+  }
 
-    if (Number(rate) <= 0) {
-      setFormError("Hourly rate must be greater than 0.");
-      return;
-    }
-
-    try {
-      const response = await fetch(
-        "http://127.0.0.1:8000/api/stations",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-          body: JSON.stringify({
-            name: stationName,
-            tier: tier,
-            rate: Number(rate),
-          }),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to add station.");
+  try {
+    const response = await fetch(
+      `http://127.0.0.1:8000/api/stations/${stationId}`,
+      {
+        method: "DELETE",
+        headers: {
+          Accept: "application/json",
+        },
       }
+    );
 
-      const newStation = await response.json();
-
-      setStations((currentStations) => [
-        ...currentStations,
-        newStation,
-      ]);
-
-      clearForm();
-    } catch (error) {
-      console.error(error);
-      setFormError("Failed to add station.");
+    if (!response.ok) {
+      throw new Error("Failed to delete station.");
     }
+
+    setStations((currentStations) =>
+      currentStations.filter(
+        (station) => station.id !== stationId
+      )
+    );
+  } catch (error) {
+    console.error(error);
+    alert("Failed to delete station.");
+  }
   };
-
-  // Update Station
-  const handleUpdateStation = async (e) => {
-    e.preventDefault();
-
-    if (!stationName || !tier || !rate) {
-      setFormError("Please fill in all fields.");
-      return;
-    }
-
-    if (Number(rate) <= 0) {
-      setFormError("Hourly rate must be greater than 0.");
-      return;
-    }
-
-    try {
-      const response = await fetch(
-        `http://127.0.0.1:8000/api/stations/${editingStation.id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-          body: JSON.stringify({
-            name: stationName,
-            tier: tier,
-            rate: Number(rate),
-          }),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to update station.");
-      }
-
-      const updatedStation = await response.json();
-
-      setStations((currentStations) =>
-        currentStations.map((station) =>
-          station.id === updatedStation.id
-            ? updatedStation
-            : station
-        )
-      );
-
-      clearForm();
-    } catch (error) {
-      console.error(error);
-      setFormError("Failed to update station.");
-    }
-  };
-
   // Clear station form
   const clearForm = () => {
     setStationName("");
