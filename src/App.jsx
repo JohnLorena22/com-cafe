@@ -226,6 +226,50 @@ function App() {
   };
 
   // ==========================================
+  // OPEN ADD STATION FORM
+  // ==========================================
+  const openAddStation = () => {
+    setEditingStation(null);
+    setStationName("");
+    setTier("");
+    setRate("");
+    setStatus("Available");
+    setFormError("");
+    setShowAddStation(true);
+  };
+
+  // ==========================================
+  // OPEN EDIT STATION FORM
+  // ==========================================
+  const openEditStation = (station) => {
+    setEditingStation(station);
+    setStationName(station.name);
+    setTier(station.tier);
+    setRate(station.rate);
+    setStatus(station.status);
+    setFormError("");
+  };
+
+  // ==========================================
+  // GET STATUS CLASS
+  // ==========================================
+  const getStatusClass = (stationStatus) => {
+    if (stationStatus === "Available") {
+      return "available";
+    }
+
+    if (stationStatus === "In Use") {
+      return "in-use";
+    }
+
+    if (stationStatus === "Maintenance") {
+      return "maintenance";
+    }
+
+    return "unknown";
+  };
+
+  // ==========================================
   // LOGIN PAGE
   // ==========================================
   if (!isLoggedIn) {
@@ -452,6 +496,8 @@ function App() {
           className="logout-button"
           onClick={() => {
             setIsLoggedIn(false);
+            setUsername("");
+            setPassword("");
           }}
         >
           Logout
@@ -470,15 +516,7 @@ function App() {
 
           <button
             className="add-button"
-            onClick={() => {
-              setEditingStation(null);
-              setStationName("");
-              setTier("");
-              setRate("");
-              setStatus("Available");
-              setFormError("");
-              setShowAddStation(true);
-            }}
+            onClick={openAddStation}
           >
             +
           </button>
@@ -493,7 +531,7 @@ function App() {
                 className="station-card"
                 key={station.id}
               >
-                <div>
+                <div className="station-info">
                   <h3>{station.name}</h3>
 
                   <p>
@@ -504,23 +542,31 @@ function App() {
                     Hourly Rate: ₱{station.rate}
                   </p>
 
-                  <p>
-                    Status: {station.status}
-                  </p>
+                  {/* STATUS */}
+                  <div className="station-status">
+                    <span
+                      className={`status-dot ${getStatusClass(
+                        station.status
+                      )}`}
+                    ></span>
+
+                    <span
+                      className={`status-text ${getStatusClass(
+                        station.status
+                      )}`}
+                    >
+                      {station.status}
+                    </span>
+                  </div>
                 </div>
 
                 <div className="station-actions">
                   {/* EDIT */}
                   <button
                     className="details-button"
-                    onClick={() => {
-                      setEditingStation(station);
-                      setStationName(station.name);
-                      setTier(station.tier);
-                      setRate(station.rate);
-                      setStatus(station.status);
-                      setFormError("");
-                    }}
+                    onClick={() =>
+                      openEditStation(station)
+                    }
                   >
                     Edit
                   </button>

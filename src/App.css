@@ -1,70 +1,451 @@
-.form-card {
-  max-width: 550px;
-  margin: 20px auto;
-  padding: 35px;
-  background: white;
-  border-radius: 16px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
+/* ==========================================
+   GLOBAL
+========================================== */
+
+* {
+  box-sizing: border-box;
 }
 
-.form-card h2 {
-  margin-top: 0;
-  color: #44403c;
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #0f1115;
+  color: #f5f5f5;
 }
 
-.form-description {
-  color: #78716c;
-  margin-bottom: 30px;
+button,
+input,
+select {
+  font-family: inherit;
 }
 
+button {
+  cursor: pointer;
+}
+
+/* ==========================================
+   LOGIN PAGE
+========================================== */
+
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background:
+    radial-gradient(circle at top, #252a33 0%, #0f1115 45%);
+}
+
+.login-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 40px;
+  background: #181b21;
+  border: 1px solid #2b3039;
+  border-radius: 18px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+}
+
+.login-card h1 {
+  margin: 0;
+  text-align: center;
+  font-size: 32px;
+  letter-spacing: -0.5px;
+}
+
+.subtitle {
+  margin: 8px 0 32px;
+  text-align: center;
+  color: #9ca3af;
+  font-size: 14px;
+}
+
+/* ==========================================
+   FORM ELEMENTS
+========================================== */
+
+.login-card form,
 .form-card form {
   display: flex;
   flex-direction: column;
 }
 
-.form-card label {
-  margin-bottom: 7px;
-  color: #44403c;
-  font-weight: bold;
+label {
+  margin-bottom: 8px;
+  color: #d1d5db;
+  font-size: 14px;
+  font-weight: 600;
 }
 
-.form-card input,
-.form-card select {
-  padding: 12px;
+input,
+select {
+  width: 100%;
+  padding: 13px 14px;
   margin-bottom: 20px;
-  border: 1px solid #d6d3d1;
-  border-radius: 8px;
+  border: 1px solid #343a46;
+  border-radius: 10px;
+  outline: none;
+  background: #111318;
+  color: #f5f5f5;
   font-size: 15px;
-  background: white;
+  transition: 0.2s ease;
 }
 
-.form-card input:focus,
-.form-card select:focus {
-  outline: none;
-  border-color: #78716c;
+input::placeholder {
+  color: #6b7280;
 }
+
+input:focus,
+select:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+/* ==========================================
+   GENERAL BUTTON
+========================================== */
+
+button[type="submit"] {
+  width: 100%;
+  padding: 13px 18px;
+  border: none;
+  border-radius: 10px;
+  background: #6366f1;
+  color: white;
+  font-size: 15px;
+  font-weight: 700;
+  transition: 0.2s ease;
+}
+
+button[type="submit"]:hover {
+  background: #5558e8;
+  transform: translateY(-1px);
+}
+
+/* ==========================================
+   ERROR
+========================================== */
+
+.error-message {
+  margin: -8px 0 18px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: rgba(239, 68, 68, 0.1);
+  color: #f87171;
+  font-size: 13px;
+}
+
+/* ==========================================
+   STATION PAGE
+========================================== */
+
+.station-page {
+  min-height: 100vh;
+  background: #0f1115;
+}
+
+/* ==========================================
+   HEADER
+========================================== */
+
+.station-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px 7%;
+  border-bottom: 1px solid #272c35;
+  background: #15181e;
+}
+
+.station-header h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.station-header p {
+  margin: 5px 0 0;
+  color: #8f96a3;
+  font-size: 13px;
+}
+
+/* ==========================================
+   LOGOUT
+========================================== */
+
+.logout-button {
+  padding: 9px 16px;
+  border: 1px solid #343a46;
+  border-radius: 9px;
+  background: transparent;
+  color: #d1d5db;
+  font-size: 14px;
+  transition: 0.2s ease;
+}
+
+.logout-button:hover {
+  background: #252a33;
+  color: white;
+}
+
+/* ==========================================
+   MAIN CONTENT
+========================================== */
+
+.station-content {
+  width: 86%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 45px 0;
+}
+
+/* ==========================================
+   STATION TITLE
+========================================== */
+
+.station-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+}
+
+.station-title h2 {
+  margin: 0;
+  font-size: 28px;
+}
+
+.station-title p {
+  margin: 7px 0 0;
+  color: #8f96a3;
+  font-size: 14px;
+}
+
+/* ==========================================
+   ADD BUTTON
+========================================== */
+
+.add-button {
+  width: 46px;
+  height: 46px;
+  border: none;
+  border-radius: 12px;
+  background: #6366f1;
+  color: white;
+  font-size: 27px;
+  line-height: 1;
+  transition: 0.2s ease;
+}
+
+.add-button:hover {
+  background: #5558e8;
+  transform: translateY(-2px);
+}
+
+/* ==========================================
+   STATION LIST
+========================================== */
+
+.station-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.station-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 24px;
+  background: #181b21;
+  border: 1px solid #2b3039;
+  border-radius: 15px;
+  transition: 0.2s ease;
+}
+
+.station-card:hover {
+  border-color: #414856;
+  transform: translateY(-2px);
+}
+
+.station-card h3 {
+  margin: 0 0 14px;
+  font-size: 19px;
+}
+
+.station-card p {
+  margin: 6px 0;
+  color: #a8adb7;
+  font-size: 14px;
+}
+
+/* ==========================================
+   STATION ACTIONS
+========================================== */
+
+.station-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.details-button,
+.delete-button {
+  padding: 9px 13px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  transition: 0.2s ease;
+}
+
+.details-button {
+  border: 1px solid #3d4350;
+  background: #242932;
+  color: #e5e7eb;
+}
+
+.details-button:hover {
+  background: #303641;
+}
+
+.delete-button {
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  background: rgba(239, 68, 68, 0.08);
+  color: #f87171;
+}
+
+.delete-button:hover {
+  background: rgba(239, 68, 68, 0.16);
+}
+
+/* ==========================================
+   ADD / EDIT FORM
+========================================== */
+
+.form-card {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 35px;
+  background: #181b21;
+  border: 1px solid #2b3039;
+  border-radius: 18px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.form-card h2 {
+  margin: 0;
+  font-size: 26px;
+}
+
+.form-description {
+  margin: 8px 0 30px;
+  color: #8f96a3;
+  font-size: 14px;
+}
+
+/* ==========================================
+   FORM BUTTONS
+========================================== */
 
 .form-buttons {
   display: flex;
   gap: 10px;
-  margin-top: 10px;
+  margin-top: 8px;
 }
 
 .form-buttons button {
   flex: 1;
-  padding: 12px;
-  border: none;
-  border-radius: 8px;
-  font-size: 15px;
-  cursor: pointer;
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 700;
 }
 
 .form-buttons button[type="submit"] {
-  background: #78716c;
-  color: white;
+  width: auto;
 }
 
 .cancel-button {
-  background: #e7e5e4;
-  color: #44403c;
+  border: 1px solid #343a46;
+  background: #242932;
+  color: #d1d5db;
+}
+
+.cancel-button:hover {
+  background: #303641;
+}
+
+/* ==========================================
+   EMPTY STATE
+========================================== */
+
+.station-list > p {
+  grid-column: 1 / -1;
+  padding: 40px;
+  text-align: center;
+  color: #8f96a3;
+  background: #181b21;
+  border: 1px dashed #343a46;
+  border-radius: 14px;
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media (max-width: 800px) {
+  .station-list {
+    grid-template-columns: 1fr;
+  }
+
+  .station-header {
+    padding: 20px 5%;
+  }
+
+  .station-content {
+    width: 90%;
+    padding: 35px 0;
+  }
+}
+
+@media (max-width: 500px) {
+  .login-card {
+    padding: 28px 22px;
+  }
+
+  .login-card h1 {
+    font-size: 27px;
+  }
+
+  .station-header h1 {
+    font-size: 20px;
+  }
+
+  .station-title h2 {
+    font-size: 23px;
+  }
+
+  .station-card {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .station-actions {
+    width: 100%;
+  }
+
+  .details-button,
+  .delete-button {
+    flex: 1;
+  }
+
+  .form-card {
+    padding: 25px 20px;
+  }
+
+  .form-buttons {
+    flex-direction: column;
+  }
 }
