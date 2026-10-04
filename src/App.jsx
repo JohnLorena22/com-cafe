@@ -7,6 +7,7 @@ function App() {
   const [error, setError] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showAddStation, setShowAddStation] = useState(false);
+  const [editingStation, setEditingStation] = useState(null);
 
   // Station state
   const [stations, setStations] = useState([]);
@@ -248,14 +249,18 @@ function App() {
                 <p>Hourly Rate: ₱{station.rate}</p>
               </div>
 
-              <button
-               className="details-button"
-               onClick={() => {
-               console.log("Station selected:", station);
-               }}
-              >
-              View Details
-             </button>
+               <button
+                 className="details-button"
+                 onClick={() => {
+                  setEditingStation(station);
+                  setStationName(station.name);
+                  setTier(station.tier);
+                  setRate(station.rate);
+                  setFormError("");
+                 }}
+                >
+                 Edit
+              </button>
             </div>
           ))}
         </div>
